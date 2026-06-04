@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wufoo Theme &middot; Preview</title>
+
+<!--
+	Self-contained preview of css/custom.css.
+
+	Two demos stacked:
+	1. The reference form — tailor this to match the user's screenshot exactly
+	   (labels, field order, placeholders, button text).
+	2. The comprehensive demo — keeps every field type, state, and CSS Layout
+	   Keyword visible so the user can spot anything broken before uploading.
+
+	The body background below is DEMO-ONLY. The theme itself sets no body
+	background, so when embedded the form inherits whatever's behind it.
+-->
+
+<link rel="stylesheet" href="css/custom.css" type="text/css" />
+
+<style>
+	/* Demo-only — not part of the theme */
+	html, body { margin: 0; padding: 0; }
+	body {
+		background: {{PREVIEW_BG}};
+		min-height: 100vh;
+		font-family: 'Manrope', system-ui, sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	.demo-divider {
+		max-width: 720px;
+		margin: 64px auto;
+		padding: 0 24px;
+		font-family: 'Manrope', sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		color: {{PREVIEW_DIVIDER_INK}};
+		display: flex;
+		align-items: center;
+		gap: 18px;
+	}
+	.demo-divider::before,
+	.demo-divider::after {
+		content: '';
+		flex: 1;
+		height: 1px;
+		background: {{PREVIEW_DIVIDER_LINE}};
+	}
+</style>
+</head>
+
+<body id="public">
+
+
+<!-- - - - DEMO 1: Reference form (tailor to user's screenshot) - - - -->
+
+<div id="container">
+
+	<form class="wufoo" action="#" novalidate>
+		<ul>
+
+			<li class="leftHalf">
+				<label class="desc">First Name<span class="req"> * </span></label>
+				<div><input class="field text" type="text" placeholder="Jane" /></div>
+			</li>
+
+			<li class="rightHalf">
+				<label class="desc">Last Name<span class="req"> * </span></label>
+				<div><input class="field text" type="text" placeholder="Smith" /></div>
+			</li>
+
+			<li>
+				<label class="desc">Email Address<span class="req"> * </span></label>
+				<div><input class="field text" type="email" placeholder="jane@example.com" /></div>
+			</li>
+
+			<li>
+				<label class="desc">Subject</label>
+				<div>
+					<select class="field select">
+						<option value="" selected>Select an option…</option>
+						<option>General Inquiry</option>
+						<option>Sales</option>
+						<option>Support</option>
+					</select>
+				</div>
+			</li>
+
+			<li>
+				<label class="desc">Message</label>
+				<div><textarea class="field textarea" rows="3" placeholder="How may we assist you?"></textarea></div>
+			</li>
+
+			<li class="buttons">
+				<input class="btTxt submit" type="submit" value="Send Inquiry" onclick="return false" />
+			</li>
+
+		</ul>
+	</form>
+
+</div>
+
+
+<div class="demo-divider">Comprehensive Demo · all field types &amp; layout keywords</div>
+
+
+<!-- - - - DEMO 2: Comprehensive — every field type the theme covers - - - -->
+
+<div id="container">
+
+	<form class="wufoo" action="#" novalidate>
+
+		<header id="header" class="info">
+			<h2>Form Title</h2>
+			<div>Description text — keep it short and to the point.</div>
+		</header>
+
+		<ul>
+
+			<!-- Section divider -->
+			<li class="section first">
+				<section>
+					<h3>Your Details</h3>
+					<div>The basics.</div>
+				</section>
+			</li>
+
+			<!-- 2-column: leftHalf / rightHalf -->
+			<li class="leftHalf">
+				<label class="desc">First Name<span class="req"> * </span></label>
+				<div><input class="field text" type="text" placeholder="Jane" /></div>
+			</li>
+			<li class="rightHalf">
+				<label class="desc">Last Name<span class="req"> * </span></label>
+				<div><input class="field text" type="text" placeholder="Smith" /></div>
+			</li>
+
+			<!-- 3-column: leftThird / middleThird / rightThird -->
+			<li class="leftThird">
+				<label class="desc">Email</label>
+				<div><input class="field text" type="email" placeholder="jane@example.com" /></div>
+			</li>
+			<li class="middleThird">
+				<label class="desc">Phone</label>
+				<div><input class="field text" type="tel" placeholder="(555) 123-4567" /></div>
+			</li>
+			<li class="rightThird">
+				<label class="desc">Country</label>
+				<div>
+					<select class="field select">
+						<option value="" selected>Select…</option>
+						<option>United States</option>
+						<option>United Kingdom</option>
+						<option>Italy</option>
+						<option>Japan</option>
+					</select>
+				</div>
+			</li>
+
+			<!-- Full-width inputs -->
+			<li>
+				<label class="desc">Website</label>
+				<div><input class="field text" type="url" placeholder="https://" /></div>
+			</li>
+
+			<li class="altInstruct">
+				<label class="desc">Message</label>
+				<div><textarea class="field textarea" rows="4" placeholder="How may we assist you?"></textarea></div>
+				<p class="instruct"><small>Add as much detail as you'd like — there's no character limit.</small></p>
+			</li>
+
+			<!-- Hidden-field keyword: should not appear in the rendered preview -->
+			<li class="hide">
+				<label class="desc">Tracking Source</label>
+				<div><input class="field text" type="text" value="preview" /></div>
+			</li>
+
+			<!-- Section divider -->
+			<li class="section">
+				<section>
+					<h3>Preferences</h3>
+					<div>Choices and combinations.</div>
+				</section>
+			</li>
+
+			<!-- Radio group (vertical, default) -->
+			<li>
+				<fieldset>
+					<legend class="desc">Plan</legend>
+					<div class="col">
+						<span><input class="field radio" type="radio" name="plan" id="plan1" checked /><label class="choice" for="plan1">Starter</label></span>
+						<span><input class="field radio" type="radio" name="plan" id="plan2" /><label class="choice" for="plan2">Professional</label></span>
+						<span><input class="field radio" type="radio" name="plan" id="plan3" /><label class="choice" for="plan3">Enterprise</label></span>
+					</div>
+				</fieldset>
+			</li>
+
+			<!-- Checkbox group with `inline` keyword (horizontal flow) -->
+			<li class="inline">
+				<fieldset>
+					<legend class="desc">Add-ons (Optional)</legend>
+					<div class="col">
+						<span><input class="field checkbox" type="checkbox" id="ad1" checked /><label class="choice" for="ad1">Priority Support</label></span>
+						<span><input class="field checkbox" type="checkbox" id="ad2" /><label class="choice" for="ad2">Onboarding Call</label></span>
+						<span><input class="field checkbox" type="checkbox" id="ad3" /><label class="choice" for="ad3">Custom Integration</label></span>
+						<span><input class="field checkbox" type="checkbox" id="ad4" /><label class="choice" for="ad4">SLA</label></span>
+					</div>
+				</fieldset>
+			</li>
+
+			<!-- Cloak keyword: label remains, controls are hidden -->
+			<li class="cloak">
+				<label class="desc">Internal Coupon</label>
+				<div><input class="field text" type="text" value="HIDDEN" /></div>
+			</li>
+
+			<!-- scrollText keyword -->
+			<li class="section scrollText">
+				<section>
+					<h3>Terms</h3>
+					<div>This section uses the official Wufoo scrollText keyword. Add longer terms, policy text, or consent language here to verify scrollable section styling in the theme preview.</div>
+				</section>
+			</li>
+
+			<!-- Section divider -->
+			<li class="section">
+				<section>
+					<h3>Inline Span Groups</h3>
+					<div>Name, Date, Time, Phone, Currency.</div>
+				</section>
+			</li>
+
+			<!-- Name field (sub-labels) -->
+			<li>
+				<label class="desc">Full Name</label>
+				<span><input class="field text" size="2" /><label>Title</label></span>
+				<span><input class="field text" size="10" /><label>First</label></span>
+				<span><input class="field text" size="14" /><label>Last</label></span>
+				<span><input class="field text" size="3" /><label>Suffix</label></span>
+			</li>
+
+			<!-- Date field -->
+			<li>
+				<label class="desc">Date</label>
+				<span><input class="field text" size="2" maxlength="2" /> /<label>MM</label></span>
+				<span><input class="field text" size="2" maxlength="2" /> /<label>DD</label></span>
+				<span><input class="field text" size="4" maxlength="4" /><label>YYYY</label></span>
+			</li>
+
+			<!-- Time field -->
+			<li>
+				<label class="desc">Time</label>
+				<span><input class="field text" size="2" maxlength="2" /> :<label>HH</label></span>
+				<span><input class="field text" size="2" maxlength="2" /><label>MM</label></span>
+				<span>
+					<select class="field select" style="width:5em">
+						<option>AM</option>
+						<option>PM</option>
+					</select>
+					<label>AM/PM</label>
+				</span>
+			</li>
+
+			<!-- Phone field -->
+			<li>
+				<label class="desc">Phone</label>
+				<span><input class="field text" type="tel" size="3" maxlength="3" /> -<label>###</label></span>
+				<span><input class="field text" type="tel" size="3" maxlength="3" /> -<label>###</label></span>
+				<span><input class="field text" type="tel" size="4" maxlength="4" /><label>####</label></span>
+			</li>
+
+			<!-- Currency field -->
+			<li>
+				<label class="desc">Budget</label>
+				<span>&#36;</span>
+				<span><input class="field text currency nospin" type="number" size="10" /> .<label>Dollars</label></span>
+				<span><input class="field text nospin" size="2" type="number" maxlength="2" /><label>Cents</label></span>
+			</li>
+
+			<!-- Address (.complex / .full / .left / .right) -->
+			<li class="complex">
+				<label class="desc">Address</label>
+				<div>
+					<span class="full"><input class="field text addr" type="text" /><label>Street Address</label></span>
+					<span class="full"><input class="field text addr" type="text" /><label>Address Line 2</label></span>
+					<span class="left"><input class="field text addr" type="text" /><label>City</label></span>
+					<span class="right"><input class="field text addr" type="text" /><label>State / Province / Region</label></span>
+					<span class="left"><input class="field text addr" type="text" maxlength="15" /><label>Postal / Zip Code</label></span>
+					<span class="right">
+						<select class="field select addr">
+							<option value="" selected></option>
+							<option>United States</option>
+							<option>United Kingdom</option>
+							<option>Italy</option>
+							<option>Japan</option>
+						</select>
+						<label>Country</label>
+					</span>
+				</div>
+			</li>
+
+			<!-- Section divider -->
+			<li class="section">
+				<section>
+					<h3>Files &amp; Edge Cases</h3>
+					<div>File upload, error states, secondary fields.</div>
+				</section>
+			</li>
+
+			<!-- File upload -->
+			<li class="complex">
+				<label class="desc">File Upload</label>
+				<div><span class="full"><input class="field file" type="file" /></span></div>
+			</li>
+
+			<!-- 4-column -->
+			<li class="leftFourth"><label class="desc">Q1</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="middleFourth"><label class="desc">Q2</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="middleFourth"><label class="desc">Q3</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="rightFourth"><label class="desc">Q4</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+
+			<!-- 5-column -->
+			<li class="leftFifth"><label class="desc">Mon</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="middleFifth"><label class="desc">Tue</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="middleFifth"><label class="desc">Wed</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="middleFifth"><label class="desc">Thu</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+			<li class="rightFifth"><label class="desc">Fri</label><div><input class="field text nospin" type="number" placeholder="0" /></div></li>
+
+			<!-- Error state -->
+			<li class="error">
+				<label class="desc">Confirmation Code</label>
+				<div><input class="field text" type="text" value="ABC" /></div>
+				<p class="errMsg">Please enter a valid 6-character code.</p>
+			</li>
+
+			<!-- Disabled / readonly -->
+			<li class="leftHalf">
+				<label class="desc">Reference ID</label>
+				<div><input class="field text" type="text" value="REF-2026-0481" readonly /></div>
+			</li>
+			<li class="rightHalf">
+				<label class="desc">Tier</label>
+				<div><input class="field text" type="text" value="Member" disabled /></div>
+			</li>
+
+			<!-- Range -->
+			<li>
+				<label class="desc">Slider</label>
+				<div><input class="field" type="range" min="1" max="10" value="5" /></div>
+			</li>
+
+			<!-- Color + native date -->
+			<li class="leftHalf">
+				<label class="desc">Color</label>
+				<div><input class="field" type="color" value="#888888" /></div>
+			</li>
+			<li class="rightHalf">
+				<label class="desc">Native Date</label>
+				<div><input class="field text" type="date" /></div>
+			</li>
+
+			<!-- Submit row with `hideSecondary` keyword hiding the previous button -->
+			<li class="buttons hideSecondary">
+				<input id="prevPage" class="btTxt prev" type="button" value="← Back" onclick="return false" />
+				<input id="saveForm" class="btTxt submit" type="submit" value="Submit" onclick="return false" />
+			</li>
+
+		</ul>
+	</form>
+
+</div>
+
+
+</body>
+</html>
