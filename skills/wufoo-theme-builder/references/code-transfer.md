@@ -76,7 +76,7 @@ If styles are spread across runtime CSS or component-library themes, run the app
 
 - Read component-scoped styles and global styles.
 - Ignore framework-generated scoping attributes.
-- Convert state classes and validation blocks into Wufoo's `li.error`, `p.errMsg`, `.errMsg`, `#errMsg`, `.focused`, `:focus`, `:disabled`, and `[readonly]` surfaces.
+- Convert state classes and validation blocks into Wufoo's `li.error`, `p.errMsg`, `.focused`, `:focus`, `:disabled`, and `[readonly]` surfaces.
 
 ### Tailwind
 
