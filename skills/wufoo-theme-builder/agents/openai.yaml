@@ -1,0 +1,8 @@
+interface:
+  display_name: "Wufoo Theme Builder"
+  short_description: "Convert app forms into Wufoo CSS themes"
+  brand_color: "#315E46"
+  default_prompt: "Use $wufoo-theme-builder to convert my app form styling into a production-ready Wufoo custom.css theme."
+
+policy:
+  allow_implicit_invocation: true
