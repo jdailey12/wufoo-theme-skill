@@ -1,0 +1,810 @@
+/*
+  Title: {{THEME_NAME}}
+  Author: {{AUTHOR}}
+  URL: {{URL}}
+  Notes: {{NOTES}}
+  Last updated: {{DATE}}
+
+  Wufoo custom.css template.
+  Replace the token values first, then adjust selectors only when the target form
+  exposes a Wufoo-specific class or field id that needs special treatment.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family={{GOOGLE_FONT_FAMILIES}}&display=swap');
+
+:root {
+  --wf-font: '{{PRIMARY_FONT}}', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --wf-font-display: '{{DISPLAY_FONT_OR_PRIMARY}}', var(--wf-font);
+
+  --wf-ink: {{INK}};
+  --wf-ink-soft: {{INK_SOFT}};
+  --wf-ink-muted: {{INK_MUTED}};
+  --wf-surface: {{SURFACE}};
+  --wf-surface-soft: {{SURFACE_SOFT}};
+  --wf-line: {{LINE}};
+  --wf-line-strong: {{LINE_STRONG}};
+  --wf-focus: {{LINE_FOCUS}};
+  --wf-cta-bg: {{CTA_BG}};
+  --wf-cta-bg-hover: {{CTA_BG_HOVER}};
+  --wf-cta-fg: {{CTA_FG}};
+  --wf-secondary-fg: {{SECONDARY_FG}};
+  --wf-secondary-border: {{SECONDARY_BORDER}};
+  --wf-error: {{ERROR}};
+  --wf-error-soft: {{ERROR_SOFT}};
+  --wf-success: {{SUCCESS}};
+
+  --wf-width: 720px;
+  --wf-gap: 32px;
+  --wf-col-gap: 24px;
+  --wf-label-size: 13px;
+  --wf-input-size: 16px;
+  --wf-radius: 0;
+}
+
+html,
+body#public,
+#container {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#container {
+  max-width: var(--wf-width);
+  margin: 0 auto;
+  padding: 0;
+}
+
+#logo,
+#logo a {
+  display: none !important;
+}
+
+.wufoo {
+  font-family: var(--wf-font);
+  color: var(--wf-ink);
+}
+
+.wufoo ul,
+.wufoo ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--wf-col-gap);
+  row-gap: var(--wf-gap);
+  margin: 0;
+  padding: 0;
+}
+
+.wufoo li {
+  flex: 1 1 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.wufoo fieldset,
+.wufoo legend {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.wufoo a {
+  color: var(--wf-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.wufoo a:hover {
+  color: var(--wf-cta-bg-hover);
+}
+
+/* Form title and sections */
+.wufoo header.info {
+  margin: 0 0 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.wufoo header.info h2,
+#confirm h1,
+#confirm h2,
+.confirm h1,
+.confirm h2 {
+  margin: 0 0 12px;
+  font-family: var(--wf-font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--wf-ink);
+}
+
+.wufoo header.info div,
+.wufoo .section div,
+.wufoo .instruct small,
+#confirm p,
+.confirm p {
+  font-family: var(--wf-font);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--wf-ink-muted);
+}
+
+.wufoo li.section {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.wufoo .section h3 {
+  margin: 0 0 8px;
+  font-family: var(--wf-font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--wf-ink);
+}
+
+/* Wufoo keyword: scrollText. scrollable is kept as a legacy alias. */
+.wufoo li.section.scrollText .section,
+.wufoo li.section.scrollable .section {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 16px 18px;
+  border: 1px solid var(--wf-line);
+  border-radius: var(--wf-radius);
+}
+
+/* Labels */
+.wufoo label.desc,
+.wufoo legend.desc {
+  display: block;
+  margin: 0 0 14px;
+  padding: 0;
+  font-family: var(--wf-font-display);
+  font-size: var(--wf-label-size);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--wf-ink);
+}
+
+.wufoo .req,
+.wufoo span.req {
+  display: inline !important;
+  margin-left: 2px !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em !important;
+  color: var(--wf-ink-muted) !important;
+  vertical-align: baseline;
+}
+
+.wufoo li span > label,
+.wufoo li div span > label,
+.wufoo li.complex span > label {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--wf-font);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--wf-ink-muted);
+}
+
+/* Use .hidden or label.hide for accessibility helper labels. Do not target
+   .wufoo .hide generically: official Wufoo hide is field-level. */
+.wufoo label.hidden,
+.wufoo legend.hidden,
+.wufoo span.hidden,
+.wufoo label.hide,
+.wufoo legend.hide,
+.wufoo span.hide {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Official Wufoo keyword: hide removes the entire field. */
+.wufoo li.hide {
+  display: none !important;
+}
+
+/* Official Wufoo keyword: cloak hides inputs while leaving the label visible. */
+.wufoo li.cloak > div,
+.wufoo li.cloak > span,
+.wufoo li.cloak input,
+.wufoo li.cloak textarea,
+.wufoo li.cloak select,
+.wufoo li.cloak .col {
+  display: none !important;
+}
+
+.wufoo li.noLabel > label.desc,
+.wufoo li.noLabel > fieldset > legend.desc {
+  display: none;
+}
+
+/* Inputs */
+.wufoo input.text,
+.wufoo input[type='text'],
+.wufoo input[type='email'],
+.wufoo input[type='tel'],
+.wufoo input[type='url'],
+.wufoo input[type='number'],
+.wufoo input[type='search'],
+.wufoo input[type='password'],
+.wufoo input[type='date'],
+.wufoo input[type='datetime-local'],
+.wufoo input[type='month'],
+.wufoo input[type='week'],
+.wufoo input[type='time'],
+.wufoo textarea.textarea,
+.wufoo select.select,
+.wufoo select[multiple] {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 0 14px;
+  font-family: var(--wf-font) !important;
+  font-size: var(--wf-input-size) !important;
+  font-weight: 300 !important;
+  line-height: 1.4 !important;
+  color: var(--wf-ink) !important;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--wf-line);
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  transition: border-color 180ms ease, color 180ms ease;
+}
+
+.wufoo input.text.small,
+.wufoo input.text.medium,
+.wufoo input.text.large,
+.wufoo textarea.textarea.small,
+.wufoo textarea.textarea.medium,
+.wufoo textarea.textarea.large {
+  width: 100%;
+}
+
+.wufoo textarea.textarea {
+  min-height: 96px;
+  resize: vertical;
+  padding-bottom: 24px;
+}
+
+.wufoo select.select,
+.wufoo select.field.select {
+  height: auto !important;
+  padding-right: 28px !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--wf-ink) 50%),
+    linear-gradient(135deg, var(--wf-ink) 50%, transparent 50%) !important;
+  background-position: right 10px top 14px, right 4px top 14px !important;
+  background-size: 6px 6px, 6px 6px !important;
+  background-repeat: no-repeat !important;
+}
+
+.wufoo select.select option {
+  color: var(--wf-ink);
+  background: #ffffff;
+}
+
+.wufoo input::placeholder,
+.wufoo textarea::placeholder {
+  color: var(--wf-ink-muted);
+  font-weight: 300;
+  opacity: 1;
+}
+
+.wufoo input:focus,
+.wufoo textarea:focus,
+.wufoo select:focus,
+.wufoo .focused input.text,
+.wufoo .focused textarea.textarea,
+.wufoo .focused select.select {
+  border-bottom-color: var(--wf-focus);
+  outline: none;
+}
+
+.wufoo .focused {
+  background: transparent !important;
+}
+
+.wufoo input:disabled,
+.wufoo textarea:disabled,
+.wufoo select:disabled,
+.wufoo input[readonly],
+.wufoo textarea[readonly] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  color: var(--wf-ink-muted);
+}
+
+.wufoo input[type='file'] {
+  width: 100%;
+  padding: 10px 0;
+  font-family: var(--wf-font);
+  font-size: 15px;
+  color: var(--wf-ink);
+  border: 0;
+  border-bottom: 1px solid var(--wf-line);
+  background: transparent;
+}
+
+.wufoo input[type='file']::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 14px;
+  font-family: var(--wf-font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--wf-ink);
+  background: transparent;
+  border: 1px solid var(--wf-line-strong);
+  border-radius: var(--wf-radius);
+  cursor: pointer;
+}
+
+.wufoo input[type='range'] {
+  width: 100%;
+}
+
+.wufoo input[type='color'] {
+  width: 56px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--wf-line);
+  border-radius: var(--wf-radius);
+  background: transparent;
+}
+
+/* Inline span groups: Name, Address, Date, Time, Phone, Currency */
+.wufoo li > span,
+.wufoo li > div > span,
+.wufoo li.complex > div > span {
+  display: inline-block;
+  margin-right: 12px;
+  vertical-align: top;
+  font-family: var(--wf-font);
+  color: var(--wf-ink);
+}
+
+.wufoo li > span:last-child,
+.wufoo li > div > span:last-child,
+.wufoo li.complex > div > span:last-child {
+  margin-right: 0;
+}
+
+.wufoo li > span input.text,
+.wufoo li > div > span input.text {
+  width: auto;
+}
+
+.wufoo li.complex > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+}
+
+.wufoo .complex span.full {
+  display: block;
+  flex: 1 1 100%;
+  margin-right: 0;
+}
+
+.wufoo .complex span.left,
+.wufoo .complex span.right {
+  display: block;
+  flex: 1 1 calc(50% - 12px);
+  min-width: 200px;
+  margin-right: 0;
+}
+
+.wufoo .complex input.text,
+.wufoo .complex select.select {
+  width: 100%;
+}
+
+/* Field-part hiding keywords */
+.wufoo li.hideCents .cents,
+.wufoo li.hideCents span.cents,
+.wufoo li.hideCents input.cents,
+.wufoo li.hideSeconds .seconds,
+.wufoo li.hideSeconds span.seconds,
+.wufoo li.hideSeconds input.seconds,
+.wufoo li.hideAMPM .ampm,
+.wufoo li.hideAMPM span.ampm,
+.wufoo li.hideAMPM select.ampm,
+.wufoo li.hideAddr2 .addr2,
+.wufoo li.hideAddr2 span.addr2,
+.wufoo li.hideAddr2 input.addr2 {
+  display: none !important;
+}
+
+/* Choice fields */
+.wufoo .col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wufoo .col span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 0;
+}
+
+.wufoo li.inline .col {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+}
+
+.wufoo input.radio,
+.wufoo input.checkbox,
+.wufoo input[type='radio'],
+.wufoo input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--wf-ink);
+  flex-shrink: 0;
+}
+
+.wufoo label.choice {
+  margin: 0;
+  padding: 0;
+  font-family: var(--wf-font);
+  font-size: var(--wf-input-size);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--wf-ink);
+  cursor: pointer;
+}
+
+.wufoo .col span input.text {
+  width: auto;
+  margin-left: 8px;
+  padding-bottom: 4px;
+}
+
+/* Likert, rating, captcha, help, errors */
+.wufoo table.likert,
+.wufoo .likert table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--wf-font);
+  color: var(--wf-ink);
+}
+
+.wufoo table.likert th,
+.wufoo table.likert td {
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--wf-ink-soft);
+  border-bottom: 1px solid var(--wf-line);
+}
+
+.wufoo table.likert th:first-child,
+.wufoo table.likert td:first-child {
+  text-align: left;
+  color: var(--wf-ink);
+  font-weight: 600;
+}
+
+.wufoo .rating {
+  display: inline-flex;
+  gap: 6px;
+  font-size: 22px;
+  color: var(--wf-ink);
+}
+
+.wufoo .captcha {
+  margin-top: 12px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.wufoo .captcha img {
+  border: 1px solid var(--wf-line);
+  border-radius: var(--wf-radius);
+}
+
+.wufoo .instruct {
+  margin: 8px 0 0;
+  padding: 8px 0 0;
+  background: transparent;
+  border: 0;
+}
+
+/* Official keyword: altInstruct keeps instructions below the field. */
+.wufoo li.altInstruct .instruct,
+.wufoo li.altInstruct p.instruct {
+  position: static;
+  display: block;
+  width: auto;
+  margin-top: 10px;
+}
+
+.wufoo li.error label.desc,
+.wufoo li.error legend.desc {
+  color: var(--wf-error);
+}
+
+.wufoo li.error input.text,
+.wufoo li.error input[type='email'],
+.wufoo li.error input[type='tel'],
+.wufoo li.error input[type='url'],
+.wufoo li.error input[type='number'],
+.wufoo li.error textarea.textarea,
+.wufoo li.error select.select {
+  border-bottom-color: var(--wf-error);
+}
+
+.wufoo p.errMsg,
+.wufoo .errMsg {
+  margin: 10px 0 0;
+  padding: 0;
+  font-family: var(--wf-font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wf-error);
+  background: transparent;
+  border: 0;
+}
+
+.wufoo #errMsg,
+.wufoo .notice,
+.wufoo .info.error {
+  margin: 0 0 var(--wf-gap);
+  padding: 14px 16px;
+  font-family: var(--wf-font);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--wf-error);
+  background: var(--wf-error-soft);
+  border: 1px solid var(--wf-error);
+  border-radius: var(--wf-radius);
+}
+
+#confirm,
+.confirm {
+  padding: 48px 0;
+  font-family: var(--wf-font);
+  color: var(--wf-ink);
+  background: transparent;
+}
+
+/* Buttons */
+.wufoo li.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+  margin: 16px 0 0;
+  padding: 0 !important;
+  background: transparent;
+}
+
+.wufoo li.buttons > div,
+.wufoo li.buttons > p {
+  flex: 1 1 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.wufoo li.buttons .btTxt,
+.wufoo .btTxt.submit,
+.wufoo input[type='submit'],
+.wufoo button[type='submit'] {
+  display: block !important;
+  width: 100% !important;
+  height: 64px;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  font-family: var(--wf-font-display) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+  line-height: 64px;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  color: var(--wf-cta-fg) !important;
+  background: var(--wf-cta-bg) !important;
+  border: 0 !important;
+  border-radius: var(--wf-radius);
+  box-shadow: none !important;
+  cursor: pointer;
+  appearance: none;
+}
+
+.wufoo li.buttons .btTxt:hover,
+.wufoo .btTxt.submit:hover,
+.wufoo input[type='submit']:hover,
+.wufoo button[type='submit']:hover {
+  color: var(--wf-cta-fg) !important;
+  background: var(--wf-cta-bg-hover) !important;
+}
+
+.wufoo #prevPage,
+.wufoo .btTxt.prev,
+.wufoo .btTxt.btprev,
+.wufoo input[type='reset'].btTxt,
+.wufoo button[type='reset'],
+.wufoo .btTxt.print,
+.wufoo #printForm {
+  color: var(--wf-secondary-fg);
+  background: transparent;
+  border: 1px solid var(--wf-secondary-border);
+}
+
+/* Official keyword: hideSecondary hides previous/reset/print-style controls. */
+.wufoo .hideSecondary #prevPage,
+.wufoo .hideSecondary .btTxt.prev,
+.wufoo .hideSecondary .btTxt.btprev,
+.wufoo li.hideSecondary #prevPage,
+.wufoo li.hideSecondary .btTxt.prev,
+.wufoo li.hideSecondary .btTxt.btprev {
+  display: none !important;
+}
+
+/* Progress and footer text */
+.wufoo .pageOf,
+.wufoo #pageOf {
+  margin: 0 0 18px;
+  padding: 0;
+  font-family: var(--wf-font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wf-ink-muted);
+}
+
+.wufoo .progress {
+  height: 2px;
+  margin: 0 0 var(--wf-gap);
+  overflow: hidden;
+  background: var(--wf-line);
+}
+
+.wufoo .progress .progressBar,
+.wufoo .progress .bar {
+  height: 100%;
+  background: var(--wf-focus);
+}
+
+#container small,
+#container p,
+#container .recaptcha,
+#container .recaptcha-notice,
+#container .grecaptcha-notice,
+.wufoo + small,
+.wufoo + p {
+  margin-top: 24px;
+  font-family: var(--wf-font);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--wf-ink-soft);
+}
+
+#container a,
+#container small a,
+.wufoo + small a,
+.wufoo + p a {
+  color: var(--wf-ink) !important;
+}
+
+/* Autofill on transparent or dark backgrounds */
+.wufoo input:-webkit-autofill,
+.wufoo textarea:-webkit-autofill,
+.wufoo select:-webkit-autofill {
+  -webkit-text-fill-color: var(--wf-ink);
+  caret-color: var(--wf-ink);
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* CSS layout keywords. Apply in Wufoo Field Settings > Add CSS Layout Keywords.
+   Field order matters. */
+@media (min-width: 480px) {
+  .wufoo li.leftHalf,
+  .wufoo li.rightHalf {
+    flex: 0 1 calc((100% - var(--wf-col-gap)) / 2);
+    max-width: calc((100% - var(--wf-col-gap)) / 2);
+  }
+}
+
+@media (min-width: 640px) {
+  .wufoo li.leftThird,
+  .wufoo li.middleThird,
+  .wufoo li.rightThird {
+    flex: 0 1 calc((100% - (var(--wf-col-gap) * 2)) / 3);
+    max-width: calc((100% - (var(--wf-col-gap) * 2)) / 3);
+  }
+
+  .wufoo li.leftFourth,
+  .wufoo li.middleFourth,
+  .wufoo li.rightFourth {
+    flex: 0 1 calc((100% - (var(--wf-col-gap) * 3)) / 4);
+    max-width: calc((100% - (var(--wf-col-gap) * 3)) / 4);
+  }
+
+  .wufoo li.leftFifth,
+  .wufoo li.middleFifth,
+  .wufoo li.rightFifth {
+    flex: 0 1 calc((100% - (var(--wf-col-gap) * 4)) / 5);
+    max-width: calc((100% - (var(--wf-col-gap) * 4)) / 5);
+  }
+}
+
+@media print {
+  html,
+  body#public,
+  #container {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  #container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .wufoo,
+  .wufoo label.desc,
+  .wufoo legend.desc,
+  .wufoo .section h3,
+  .wufoo header.info h2 {
+    color: #000 !important;
+  }
+
+  .wufoo input.text,
+  .wufoo textarea.textarea,
+  .wufoo select.select {
+    color: #000 !important;
+    border-bottom-color: #000 !important;
+    background: transparent !important;
+  }
+
+  .wufoo li.buttons,
+  #logo {
+    display: none !important;
+  }
+}
