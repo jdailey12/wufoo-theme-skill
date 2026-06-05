@@ -321,6 +321,29 @@ body#public,
   opacity: 1;
 }
 
+/* Native browser validation: keep browser rings from fighting Wufoo error styling. */
+.wufoo input:invalid,
+.wufoo textarea:invalid,
+.wufoo select:invalid {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Number input spinner removal, with .nospin supported as an explicit keyword/helper. */
+.wufoo input[type='number'],
+.wufoo input.nospin {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.wufoo input[type='number']::-webkit-outer-spin-button,
+.wufoo input[type='number']::-webkit-inner-spin-button,
+.wufoo input.nospin::-webkit-outer-spin-button,
+.wufoo input.nospin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .wufoo input:focus,
 .wufoo textarea:focus,
 .wufoo select:focus,

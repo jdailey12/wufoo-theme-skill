@@ -1,6 +1,6 @@
 # Input Style Variants
 
-The default theme template uses a **borderless underline** input style. If the reference image uses a different family, replace section 8 of `theme-template.css` with one of the variants below. All four play nicely with the template's `:root` tokens — change just the input rules and the rest of the theme stays consistent.
+The default theme template uses a **borderless underline** input style. If the reference image uses a different family, replace the main input rule block in `theme-template.css` with one of the variants below. The variants play nicely with the template's `:root` tokens — change the input rules and keep the rest of the theme coverage intact.
 
 ## 1. Borderless underline (template default)
 
@@ -23,7 +23,7 @@ Modern, editorial, luxury. The look used in the boutique form screenshot that or
   color: var(--wf-ink);
 }
 
-:focus { border-bottom-color: var(--wf-line-focus); }
+:focus { border-bottom-color: var(--wf-focus); }
 ```
 
 ## 2. Boxed
@@ -46,7 +46,7 @@ Corporate, dashboard, classic. 1px border all around, small radius.
 }
 
 :focus {
-  border-color: var(--wf-line-focus);
+  border-color: var(--wf-focus);
   box-shadow: 0 0 0 3px rgba(<ink-rgb>, 0.12);
 }
 ```
@@ -77,7 +77,7 @@ Friendly, app-like, mobile-feel. Subtle background fill, no border, slight radiu
 
 Add a subtle bottom underline on focus if you want stronger feedback:
 ```css
-:focus { box-shadow: inset 0 -2px 0 0 var(--wf-line-focus); }
+:focus { box-shadow: inset 0 -2px 0 0 var(--wf-focus); }
 ```
 
 ## 4. Pill
@@ -103,7 +103,7 @@ Playful, consumer, lifestyle. High border-radius. Works best with shorter inputs
   border-radius: 18px; /* textareas can't go full pill */
 }
 
-:focus { border-color: var(--wf-line-focus); }
+:focus { border-color: var(--wf-focus); }
 ```
 
 For pill style, also round the buttons:
@@ -111,6 +111,58 @@ For pill style, also round the buttons:
 ```css
 .wufoo .btTxt.submit { border-radius: 999px; }
 ```
+
+## 5. Floating labels
+
+Use only when the source form clearly puts labels inside inputs or animates labels from placeholder position to a small floated state.
+
+Floating labels are fragile in Wufoo because labels and inputs are separate elements. Prefer applying a custom CSS Layout Keyword such as `floatLabel` only to text-like fields. Do **not** blindly apply it to selects, date/time inputs, files, ranges, or color inputs; those controls often need static labels or intentionally hidden labels.
+
+The common pattern needs `:has()` plus `:placeholder-shown`. That means the preview fields, and ideally the live Wufoo fields, need either real placeholder text or `placeholder=" "` so CSS can detect the empty state.
+
+```css
+.wufoo li.floatLabel {
+  position: relative;
+  padding-top: 6px;
+}
+
+.wufoo li.floatLabel > label.desc {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 18px;
+  margin: 0;
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.wufoo li.floatLabel input.text,
+.wufoo li.floatLabel input[type="text"],
+.wufoo li.floatLabel input[type="email"],
+.wufoo li.floatLabel input[type="tel"],
+.wufoo li.floatLabel input[type="url"],
+.wufoo li.floatLabel textarea.textarea {
+  padding-top: 22px;
+}
+
+.wufoo li.floatLabel:has(input:focus) > label.desc,
+.wufoo li.floatLabel:has(textarea:focus) > label.desc,
+.wufoo li.floatLabel:has(input:not(:placeholder-shown)) > label.desc,
+.wufoo li.floatLabel:has(textarea:not(:placeholder-shown)) > label.desc {
+  transform: translateY(-18px) scale(0.78);
+  color: var(--wf-ink-muted);
+  opacity: 0.9;
+}
+```
+
+Preview requirements for floating labels:
+
+- Add at least one empty `floatLabel` field with `placeholder=" "`.
+- Add at least one prefilled `floatLabel` field with `value="..."` and no focus.
+- Type into one field, blur it, and verify the label stays floated.
+- Check error and disabled states separately; don't assume the floating rule still reads clearly.
+- Keep select/date/time/file/range/color labels static unless the reference explicitly proves a safe treatment.
 
 ---
 
@@ -122,6 +174,7 @@ For pill style, also round the buttons:
 | Boxed | Full-width 4px radius | Sentence case bold or uppercase tracked |
 | Filled | Full-width 6–8px radius | Sentence case bold |
 | Pill | Pill-shaped (999px radius) | Sentence case bold |
+| Floating label | Same shape as the input container | Small floated label after focus or value |
 
 These are conventions, not rules — flip them if the reference design says so.
 

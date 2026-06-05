@@ -96,6 +96,8 @@ Use flex on `<ul>` and let the keywords override `flex-basis`:
 
 The `max-width` is needed because `flex-basis: calc(...)` alone can grow if siblings shrink. Setting `max-width` to the same calc keeps columns at exact fractions.
 
+Put vertical rhythm on `row-gap`, section padding/margins, or wrapper-level spacing. Avoid sibling-only spacing rules such as `.section + li { margin-top: ... }`; when the next row contains `leftHalf` / `rightHalf` or thirds, only the first column gets the extra margin and the row no longer shares a top edge.
+
 ## Breakpoints
 
 Recommended breakpoints (built into the template):
@@ -120,6 +122,8 @@ Below those widths, fields fall back to full-width stacking. This keeps mobile r
 **Fields wider than their column.** If an input has `min-width` set higher than the column allows, it'll overflow. Always pair the keyword classes with `min-width: 0` on the `<li>` and `max-width: 100%` on the inputs so they shrink to fit.
 
 **`address` and other complex fields with `leftHalf`.** Putting a 6-input address into a `leftHalf` column makes the address sub-grid cramped. Wufoo's article on this calls it out: "you probably won't be able to get five [address fields] next to each other." For complex fields, default to full-width.
+
+**Visual alignment required.** After generating the preview, inspect the rendered rows. Confirm `leftHalf` and `rightHalf` share the same top edge, and `leftThird` / `middleThird` / `rightThird` align as one row. Repeat at mobile width to confirm all keyword fields stack cleanly.
 
 ## Reference
 

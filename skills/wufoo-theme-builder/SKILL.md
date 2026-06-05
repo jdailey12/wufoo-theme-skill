@@ -63,13 +63,13 @@ For existing app/native forms, resolve styles to final values, not just class na
 
 ### 3. Copy the template, fill the tokens
 
-Copy `assets/theme-template.css` to the user's working directory as `custom.css`. The template is divided into 23 numbered sections — every Wufoo surface is already stubbed. Your job is:
+Copy `assets/theme-template.css` to the user's working directory as `custom.css`. The template already covers the important Wufoo surfaces. Your job is:
 
 1. Replace the `:root` token block with the palette + font choices from step 2
 2. Adjust the `--wf-input-size`, `--wf-label-size`, gap, and radius variables to match the design
-3. Update section 8 (inputs) if the design uses **boxed/filled** inputs instead of the default underline (see `references/input-styles.md`)
-4. Update section 18 (buttons) if the design uses a different button shape (rounded, outlined, etc.)
-5. Leave every other section alone unless the design demands a deviation
+3. Update the main input rules if the design uses **boxed/filled/pill/floating-label** inputs instead of the default underline (see `references/input-styles.md`)
+4. Update the button rules if the design uses a different button shape (rounded, outlined, inline, etc.)
+5. Leave unrelated coverage blocks alone unless the design demands a deviation
 
 When converting app code, translate visual intent into Wufoo selectors. Do not copy app-only class names, scoped attributes, Tailwind utility strings, React component names, or framework-specific selectors into the production Wufoo theme unless the user has added matching custom CSS keywords in Wufoo. Wufoo will render its own markup.
 
@@ -94,7 +94,9 @@ The template covers:
 - Autofill override (transparent on dark backgrounds)
 - Print stylesheet
 
-Do not delete sections you think the user "won't use" — Wufoo forms grow, and a missing selector becomes a visible bug the moment they add a Likert field. Coverage is the value.
+Do not delete coverage blocks you think the user "won't use" — Wufoo forms grow, and a missing selector becomes a visible bug the moment they add a Likert field. Coverage is the value.
+
+If the source design uses floating labels or labels visually inside the input, read `references/input-styles.md` before writing CSS. Floating-label themes need explicit filled-but-blurred QA because label/value overlap is easy to miss.
 
 ### 4. Generate the preview
 
@@ -108,14 +110,51 @@ The preview renders two demos stacked:
 
 If the reference shows a specific form (e.g., contact, RSVP, application), tailor demo 1 to match the labels and structure shown. If converting from an app/native form, demo 1 should mirror that source form's field order, labels, placeholders, helper text, validation copy, and CTA text. Demo 2 stays generic so the user can spot any field type that breaks.
 
-### 5. Hand off
+### 5. Render and QA before handoff
+
+Do not hand off a theme based only on reading CSS. Open `preview.html` with whatever visual tool is available: browser automation, in-app browser, screenshot/image inspection, DOM inspector, or manual browser inspection. If no automation exists, still open or inspect the preview manually and describe what you checked.
+
+Use this state checklist in the rendered preview:
+
+- Empty field
+- Focused field
+- Typed value, then blurred
+- Filled-but-blurred/prefilled field
+- Select field
+- Textarea
+- Date/time/native inputs
+- File/range/color inputs
+- Readonly, disabled, and prefilled fields
+- Error state
+- Mobile stacked layout
+- Multi-column layout rows
+
+For floating-label themes, verify that labels stay floated after a value is entered and the field loses focus. Add `placeholder=" "` or real placeholder text to the preview fields that rely on `:placeholder-shown`. Mention in handoff that live Wufoo fields using floating labels also need placeholders or equivalent state hooks where the CSS depends on them.
+
+Treat selects, date/time inputs, files, ranges, and color inputs as special cases. Do not blindly apply text-input floating-label behavior to them; their labels usually need to stay static or become visually hidden on purpose.
+
+For layout keywords, visually confirm row alignment: `leftHalf` and `rightHalf` fields share the same top edge, and `leftThird` / `middleThird` / `rightThird` fields align as one row. Repeat on mobile to confirm the same fields stack cleanly.
+
+Final polish checklist:
+
+- No label/value overlap
+- Input, select, and textarea heights feel consistent
+- Field border weights match
+- CTA width, font, and alignment match the reference
+- Section spacing is even
+- Multi-column rows align along the top edge
+- Mobile stacking reads naturally
+- Readonly/error/disabled contrast is readable
+
+### 6. Hand off
 
 Tell the user:
 
 1. The two files are ready (`custom.css` + `preview.html`)
 2. To preview: open `preview.html` in a browser
 3. To deploy: upload `custom.css` to a public URL (their server, S3, etc.), then in Wufoo go to **Theme Builder → select theme → Advanced → CSS URL** and paste the URL. Wufoo's Theme Builder docs are at https://help.wufoo.com (search "custom CSS keywords")
-4. **Important:** the local preview doesn't load Wufoo's `index.css`, so it won't catch every issue. After deploying, ask the user to send back a screenshot of the live form. Spot-check the items in the "Verifying the theme on a deployed Wufoo form" section below.
+4. Summarize the visual QA you performed and any issue you fixed or could not fully verify.
+5. **Important:** the local preview doesn't load Wufoo's `index.css`, so it won't catch every issue. After deploying, ask the user to send back a screenshot of the live form. Spot-check the items in the "Verifying the theme on a deployed Wufoo form" section below.
 
 Mention any deviations you made from the reference and why (e.g., "I made labels uppercase + tracked even though the screenshot is sentence-case, because the visual rhythm of the form benefits from it — flip `text-transform: none` on `label.desc` if you'd rather match the screenshot exactly").
 
@@ -148,11 +187,15 @@ A few things I learned the hard way that should shape every theme this skill pro
 
 **Inputs are 100% width by default.** Wufoo's `.field.text.small`/`.medium`/`.large` size classes set char-widths that look fine in Wufoo's stock theme but produce inconsistent ladder shapes in modern themes. Override them all to `width: 100%` and rely on **CSS Layout Keywords** (`leftHalf` etc.) for column control. This is the single biggest improvement you can make over Wufoo's defaults.
 
-**Coverage > brevity.** A 200-line theme that misses error states, multi-page chrome, or file upload progress will embarrass the user the first time their form errors out. The 500-line template covers everything; keep it that way.
+**Coverage > brevity.** A short theme that misses error states, multi-page chrome, or file upload progress will embarrass the user the first time their form errors out. Keep the template's coverage intact.
+
+**Visual behavior > selector coverage.** A theme is not done because the selectors exist. It is done when the rendered preview proves the important states work: empty, focused, filled, blurred, error, disabled, readonly, mobile, and multi-column.
 
 **Use CSS custom properties for the palette.** Every theme has the same skeleton — only the tokens change. Defining 8–12 properties at `:root` and referencing them throughout makes the theme tweakable in seconds and obvious to read.
 
 **Don't force layouts the form builder didn't ask for.** Earlier versions of this skill forced first-two-`<li>` elements into a 2-column row. That broke the moment someone made a single-column form or a form where the name fields weren't first. Respect Wufoo's CSS Layout Keywords instead — that's their public API for column layouts, and it's exactly what users in the form builder will use.
+
+**Keep row rhythm on rows, not sibling hacks.** Avoid spacing rules such as `.section + li { margin-top: ... }` when the next row may contain `leftHalf` / `rightHalf` or third-width fields. Put spacing on the section block, `row-gap`, or wrapper-level rhythm so columns keep the same top edge.
 
 **Port style, not markup.** In app-code transfers, the source form's DOM is evidence, not the target. Wufoo will render different HTML. Convert tokens, visual treatments, spacing, and state behavior into the Wufoo selector set.
 
@@ -171,7 +214,7 @@ The single biggest gotcha when shipping a Wufoo theme is **Wufoo's `index.css` l
 | `font-family`, `font-size`, `font-weight`, `line-height`, `color` on inputs/textarea/select | Wufoo sets these per-field-type. Without `!important`, only the select picks up the theme's `--wf-input-size` (because the select rule already uses `!important` for borders) — text inputs and textareas silently render at Wufoo's default sizes, mismatching. |
 | `border-top`, `border-left`, `border-right`, `border-bottom`, `padding` on `select.select` | Wufoo's default gives selects a heavier all-around border than text inputs. Single-side override (e.g. `border-bottom: 1px solid X`) without zeroing the other three doesn't work. |
 | `width`, `display`, `padding` on `.btTxt`, `input[type="submit"]` | Wufoo sets `.btTxt { width: auto; }`. Without `!important` on `width: 100%`, your submit button renders auto-width on the left of the row regardless of flex parent. |
-| `display` on `.req` | If you're trying to hide the required asterisk, plain `display: none` won't beat Wufoo's specificity. Either use `!important` or (better) restyle `.req` as a subtle visible marker — see template section 6. |
+| `display` on `.req` | If you're trying to hide the required asterisk, plain `display: none` won't beat Wufoo's specificity. Either use `!important` or (better) restyle `.req` as a subtle visible marker. |
 
 **Rule of thumb:** if a property looked fine locally but broke on Wufoo, the fix is `!important` on that property. Don't sprinkle `!important` everywhere — only on the specific properties Wufoo's defaults are setting.
 
@@ -180,7 +223,8 @@ The single biggest gotcha when shipping a Wufoo theme is **Wufoo's `index.css` l
 - **Wufoo CSS Layout Keywords are case-sensitive.** `leftHalf`, not `lefthalf` or `LeftHalf`. Match exactly in both the CSS and any documentation you give the user.
 - **Container padding for embed.** The template defaults `#container { padding: 0 }` because most users embed inside their own wrapper that already provides spacing. If the form is going on Wufoo's standalone hosted page (not embedded), bump padding back to `48px 24px`. Confirm with the user which deployment they're targeting.
 - **Required asterisks default to visible-but-subtle, not hidden.** Reasons: (1) Wufoo's CSS specificity makes `display: none` unreliable without `!important`, (2) hiding required indicators is bad UX on production forms. Template restyles `.req` as a small muted asterisk that reads as "required" without clashing. To hide entirely, change `display: inline` to `display: none` (keep the `!important`).
-- **The reCAPTCHA notice**. Wufoo automatically appends a "This site is protected by reCAPTCHA Enterprise..." block below the submit button on production forms. By default it's small black text with bright blue links — completely off-theme. Section 22b of the template handles it. The kit's `index.html` doesn't include this block, so you won't see it in local preview — verify after deploy.
+- **The reCAPTCHA notice**. Wufoo automatically appends a "This site is protected by reCAPTCHA Enterprise..." block below the submit button on production forms. By default it's small black text with bright blue links — completely off-theme. The template's footer/reCAPTCHA block handles it. The kit's `index.html` doesn't include this block, so you won't see it in local preview — verify after deploy.
+- **Floating label overlap**. If labels move into inputs, the filled-but-blurred state is mandatory QA. The label must remain floated after a value is typed and focus leaves the field. This usually requires a placeholder (`placeholder=" "`) or a real placeholder so CSS can use `:placeholder-shown`.
 - **Number input spinners**: kill them on **all** number inputs (`-webkit-appearance: none` + `-moz-appearance: textfield`), not just ones with the `.nospin` class. The default browser spinners look terrible in modern themes.
 - **`:invalid` styling**: Chrome's default red ring on `:invalid` overrides your error styling unless you explicitly neutralize it (`box-shadow: none; outline: none;` on `:invalid`).
 - **Autofill on dark backgrounds**: Chrome's yellow autofill background leaks through unless you set `-webkit-box-shadow: 0 0 0 1000px transparent inset` and override `-webkit-text-fill-color`.
